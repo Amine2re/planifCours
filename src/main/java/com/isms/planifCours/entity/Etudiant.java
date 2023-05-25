@@ -14,6 +14,7 @@ public class Etudiant {
     private Long prenom;
     private String dateNaissance;
     private String tel;
+    private String niveauEtude;
     private List<Cours> cours;
     private List<Professeur> professeurs;
 
