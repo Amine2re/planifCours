@@ -12,6 +12,7 @@ public class Salle {
 
     private Long id;
     private String numSalle;
+    private boolean isDisponible;
     private List<Cours> cours;
 
 }
