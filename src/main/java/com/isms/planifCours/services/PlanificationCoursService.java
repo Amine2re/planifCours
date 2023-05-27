@@ -3,12 +3,16 @@ package com.isms.planifCours.services;
 import com.isms.planifCours.entity.*;
 import com.isms.planifCours.entity.Module;
 import com.isms.planifCours.repository.*;
+import com.isms.planifCours.services.IService.ISessionCoursService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
-public class PlanificationCoursService {
+@Service
+public class PlanificationCoursService  {
 
     @Autowired
     private AnneeScolaireRepository anneeScolaireRepository;
@@ -134,8 +138,32 @@ public class PlanificationCoursService {
                 .orElseThrow(() -> new EntityNotFoundException("SessionCours not found"));
     }
 
-    public void inscrireEtudiants(List<Etudiant> etudiants) {
-        etudiantRepository.saveAll(etudiants);
+    public SessionCours createSessionCours(SessionCours sessionCours){
+        return sessionCoursRepository.save(sessionCours);
+    };
+
+    public void inscrireEtudiants(Long classeId, List<Long> etudiantIds) {
+        Optional<Classe> optionalClasse = classeRepository.findById(classeId);
+        if (optionalClasse.isPresent()) {
+            Classe classe = optionalClasse.get();
+            Iterable<Etudiant> etudiants = etudiantRepository.findAllById(etudiantIds);
+            for (Etudiant etudiant : etudiants) {
+                etudiant.setClasse(classe);
+            }
+            etudiantRepository.saveAll(etudiants);
+        } else {
+            throw new EntityNotFoundException("Classe not found with ID: " + classeId);
+        }
+    }
+
+    public List<Cours> getCoursByProfesseur(Long professeurId) {
+        Optional<Professeur> optionalProfesseur = professeurRepository.findById(professeurId);
+        if (optionalProfesseur.isPresent()) {
+            Professeur professeur = optionalProfesseur.get();
+            return coursRepository.findByProfesseur(professeur);
+        } else {
+            throw new EntityNotFoundException("Professeur not found with ID: " + professeurId);
+        }
     }
 
 }

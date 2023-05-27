@@ -25,32 +25,35 @@ public class GestionAbscencesService {
     private AbsenceRepository absenceRepository;
 
     public void marquerPresence(Long etudiantId, Long sessionCoursId) {
-        Etudiant etudiant = etudiantRepository.findById(etudiantId)
-                .orElseThrow(() -> new EntityNotFoundException("Etudiant not found"));
-        SessionCours sessionCours = sessionCoursRepository.findById(sessionCoursId)
-                .orElseThrow(() -> new EntityNotFoundException("SessionCours not found"));
+        Etudiant etudiant = etudiantRepository.findById(etudiantId).orElseThrow(() -> new EntityNotFoundException("Etudiant not found"));
+        SessionCours sessionCours = sessionCoursRepository.findById(sessionCoursId).orElseThrow(() -> new EntityNotFoundException("SessionCours not found"));
 
         Absence absence = new Absence(etudiant, sessionCours);
         absenceRepository.save(absence);
     }
 
     public List<Absence> getAbsencesByEtudiantId(Long etudiantId) {
-        Etudiant etudiant = etudiantRepository.findById(etudiantId)
-                .orElseThrow(() -> new EntityNotFoundException("Etudiant not found"));
+        Etudiant etudiant = etudiantRepository.findById(etudiantId).orElseThrow(() -> new EntityNotFoundException("Etudiant not found"));
         return absenceRepository.findByEtudiant(etudiant);
     }
 
     public List<Absence> getAbsencesBySessionCoursId(Long sessionCoursId) {
-        SessionCours sessionCours = sessionCoursRepository.findById(sessionCoursId)
-                .orElseThrow(() -> new EntityNotFoundException("SessionCours not found"));
+        SessionCours sessionCours = sessionCoursRepository.findById(sessionCoursId).orElseThrow(() -> new EntityNotFoundException("SessionCours not found"));
         return absenceRepository.findBySessionCours(sessionCours);
     }
 
+    public List<Absence> getAbsencesByCours(Long coursId) {
+        return absenceRepository.findByCoursId(coursId);
+    }
+
     public void justifierAbsence(Long absenceId, String justification) {
-        Absence absence = absenceRepository.findById(absenceId)
-                .orElseThrow(() -> new EntityNotFoundException("Absence not found"));
+        Absence absence = absenceRepository.findById(absenceId).orElseThrow(() -> new EntityNotFoundException("Absence not found"));
 
         absence.setJustification(justification);
         absenceRepository.save(absence);
+    }
+
+    public List<Absence> getAbsencesByProfesseur(Long professeurId) {
+        return absenceRepository.findByCoursProfesseurId(professeurId);
     }
 }

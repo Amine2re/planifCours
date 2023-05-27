@@ -12,4 +12,6 @@ import java.util.List;
 public interface AbsenceRepository extends CrudRepository<Absence,Long> {
     List<Absence> findByEtudiant(Etudiant etudiant);
     List<Absence> findBySessionCours(SessionCours sessionCours);
+    List<Absence> findByCoursId(Long coursId);
+    List<Absence> findByCoursProfesseurId(Long professeurId);
 }
