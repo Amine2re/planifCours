@@ -5,6 +5,8 @@ import com.isms.planifCours.entity.*;
 import com.isms.planifCours.repository.*;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @Service
 public class AdminService implements IAdmin {
@@ -12,9 +14,9 @@ public class AdminService implements IAdmin {
     private ProfesseurRepository professeurRepository;
     private AnneeScolaireRepository anneeScolaireRepository;
     private SalleRepository salleRepository;
-    private SalleRepository coursRepository;
+    private CoursRepository coursRepository;
 
-    public AdminService(EtudiantRepository etudiantRepository, ProfesseurRepository professeurRepository, AnneeScolaireRepository anneeScolaireRepository, SalleRepository salleRepository, SalleRepository coursRepository) {
+    public AdminService(EtudiantRepository etudiantRepository, ProfesseurRepository professeurRepository, AnneeScolaireRepository anneeScolaireRepository, SalleRepository salleRepository, CoursRepository coursRepository) {
         this.etudiantRepository = etudiantRepository;
         this.professeurRepository = professeurRepository;
         this.anneeScolaireRepository = anneeScolaireRepository;
@@ -68,18 +70,25 @@ public class AdminService implements IAdmin {
     public void assignerCoursToEtudiant(Long idCours,Etudiant etudiant) {
         /* TODO
             rechercher cours by Id et l'assigner à l'etudiant
+            todo asigner cours à l'etudiant
+            update etudiant
          */
 
-        var coursFound = coursRepository.findById(idCours).orElseThrow(()-> new RuntimeException("cours non trouvé"));
-        //etudiant.setCours(); // todo asigner cours à l'etudiant
-        //update etudiant
-        etudiantRepository.save(etudiant);
+        var coursFound = this.findCoursById(idCours);
+        var etudiantFound = this.findEtudiantyId(etudiant.getId());
+
+        etudiantRepository.save(etudiantFound);
 
     }
 
     @Override
-    public void planifierSession(Long idCours, Long idSession) {
+    public void planifierSession(Cours cours, Session idSession) {
+        /** todo
+         * Trouver le cours
+         * Assigner ou mettre à jour la session du cours correspondante
+         */
 
+        var coursFound = this.findCoursById(cours.getId());
     }
 
     @Override
@@ -115,5 +124,15 @@ public class AdminService implements IAdmin {
     @Override
     public void validerSessionCours(Professeur professeur, Long idCours) {
 
+    }
+
+    @Override
+    public Cours findCoursById(Long idCours) {
+        return coursRepository.findById(idCours).orElseThrow(()->new RuntimeException("Cours non trouvé"));
+    }
+
+    @Override
+    public Etudiant findEtudiantyId(Long idEtudiant) {
+        return etudiantRepository.findById(idEtudiant).orElseThrow(()->new RuntimeException("Etudiant non trouvé"));
     }
 }

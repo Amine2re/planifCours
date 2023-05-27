@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import com.isms.planifCours.enums.typeSession;
 
 @Entity
 @Data
@@ -20,4 +21,6 @@ public class Session {
     private String heureDebut;
     private String heureFin;
     private String nbrHeure;
+    private typeSession typeSession;
+
 }

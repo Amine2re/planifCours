@@ -3,15 +3,12 @@ package com.isms.planifCours.entity;
 import lombok.Data;
 import lombok.NonNull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Data
-public class Etudiant {
+public class    Etudiant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +19,8 @@ public class Etudiant {
     private String dateNaissance;
     private String tel;
     //private String niveauEtude;
+
+    @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL)
     private List<Cours> cours;
 
 }

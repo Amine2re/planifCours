@@ -1,6 +1,5 @@
 package com.isms.planifCours.entity;
 
-import com.isms.planifCours.enums.Session;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -24,8 +23,8 @@ public class Cours {
     private String niveau;
     private String dateExpiration;
     private Session sessionType;
-    //private List<Etudiant> etudiants;
-    private List<Salle> salles;
+    private Etudiant etudiant;
+    private List<Salle> salle;
     public Professeur professeur;
 
 }

@@ -1,5 +1,5 @@
 package com.isms.planifCours.enums;
 
-public enum Session {
+public enum typeSession {
     PRESENTIEL,EN_LIGNE
 }
