@@ -1,9 +1,12 @@
 package com.isms.planifCours.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Data
 public class Classe {
 
     @Id
@@ -28,4 +31,10 @@ public class Classe {
             inverseJoinColumns = @JoinColumn(name = "professeur_id")
     )
     private List<Professeur> professeurs;
+
+    public void addProfesseur(Professeur professeur) {
+    }
+
+    public void setSalle(Salle salle) {
+    }
 }
