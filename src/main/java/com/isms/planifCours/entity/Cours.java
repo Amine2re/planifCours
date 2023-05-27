@@ -3,10 +3,7 @@ package com.isms.planifCours.entity;
 import lombok.Data;
 import lombok.NonNull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -15,16 +12,21 @@ public class Cours {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NonNull
     private Long id;
-    private String Libelle;
-    private String duree;
-    private String dateCreation;
-    private String niveau;
-    private String dateExpiration;
-    private Session sessionType;
-    private Etudiant etudiant;
-    private List<Salle> salle;
-    public Professeur professeur;
+
+    private int nombreHeureGlobal;
+
+    @ManyToMany(mappedBy = "cours")
+    private List<Professeur> professeurs;
+
+    @ManyToMany
+    @JoinTable(
+            name = "cours_module",
+            joinColumns = @JoinColumn(name = "cours_id"),
+            inverseJoinColumns = @JoinColumn(name = "module_id")
+    )
+    private List<Module> modules;
+    @OneToMany(mappedBy = "cours")
+    private List<SessionCours> sessionsCours;
 
 }

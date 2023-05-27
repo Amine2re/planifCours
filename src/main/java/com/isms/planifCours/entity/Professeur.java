@@ -3,10 +3,7 @@ package com.isms.planifCours.entity;
 import lombok.Data;
 import lombok.NonNull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 
@@ -16,12 +13,13 @@ public class Professeur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NonNull
     private Long id;
-    private Long nom;
-    private Long prenom;
-    private String dateNaissance;
-    private String tel;
-    private Cours cours;
-
+    private String nom;
+    private String prenom;
+    private String specialite;
+    private String grade;
+    @ManyToMany(mappedBy = "professeurs")
+    private List<Classe> classes;
+    @ManyToMany(mappedBy = "professeurs")
+    private List<Cours> cours;
 }
