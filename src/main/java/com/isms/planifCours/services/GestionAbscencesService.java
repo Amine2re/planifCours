@@ -15,14 +15,18 @@ import java.util.List;
 @Service
 public class GestionAbscencesService {
 
-    @Autowired
     private SessionCoursRepository sessionCoursRepository;
 
-    @Autowired
     private EtudiantRepository etudiantRepository;
 
-    @Autowired
     private AbsenceRepository absenceRepository;
+
+    public GestionAbscencesService(SessionCoursRepository sessionCoursRepository, EtudiantRepository etudiantRepository, AbsenceRepository absenceRepository) {
+        this.sessionCoursRepository = sessionCoursRepository;
+        this.etudiantRepository = etudiantRepository;
+        this.absenceRepository = absenceRepository;
+    }
+
 
     public void marquerPresence(Long etudiantId, Long sessionCoursId) {
         Etudiant etudiant = etudiantRepository.findById(etudiantId).orElseThrow(() -> new EntityNotFoundException("Etudiant not found"));

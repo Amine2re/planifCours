@@ -140,7 +140,7 @@ public class PlanificationCoursService  {
 
     public SessionCours createSessionCours(SessionCours sessionCours){
         return sessionCoursRepository.save(sessionCours);
-    };
+    }
 
     public void inscrireEtudiants(Long classeId, List<Long> etudiantIds) {
         Optional<Classe> optionalClasse = classeRepository.findById(classeId);

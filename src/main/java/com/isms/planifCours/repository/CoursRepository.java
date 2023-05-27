@@ -2,7 +2,6 @@ package com.isms.planifCours.repository;
 
 import com.isms.planifCours.entity.Cours;
 import com.isms.planifCours.entity.Professeur;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
