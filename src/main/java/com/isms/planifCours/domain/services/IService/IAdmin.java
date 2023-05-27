@@ -1,17 +1,24 @@
 package com.isms.planifCours.domain.services.IService;
 
-import com.isms.planifCours.entity.AnneeScolaire;
-import com.isms.planifCours.entity.Etudiant;
-import com.isms.planifCours.entity.Professeur;
-import com.isms.planifCours.entity.Salle;
+import com.isms.planifCours.entity.*;
 
 public interface IAdmin {
-    public void inscrireEtudiant();
-    public void creerEtudiant(Etudiant etudiant);
-    public void creerProfesseur(Professeur professeur);
-    public void creerSemestre(AnneeScolaire anneeScolaire);
-    public void ajouterNouveauProfesseur();
-    public void creerSalle(Salle salle);
-    public void creerAnneeScolaire(AnneeScolaire anneeScolaire);
+     void inscrireEtudiant(Etudiant etudiant);
+     void creerEtudiant(Etudiant etudiant);
+     void creerProfesseur(Professeur professeur);
+     void creerSemestre(AnneeScolaire anneeScolaire);
+     void ajouterNouveauProfesseur();
+    void creerSalle(Salle salle);
+    void creerAnneeScolaire(AnneeScolaire anneeScolaire);
+    void assignerCoursToEtudiant(Long idCours,Etudiant etudiant);
+    void planifierSession(Long idCours,Long idSession);
+    void annulerSession(Long idSession);
+    void filtrerSession(String type,Long idSession);
+    void filtrerCours(String type,Long idSession);
+    void listerCours(String type,Long idSession);
+    void listerEtudiant(String type,Long idSession);
+    void demandeAnnulationCours(Cours cours,Professeur professeur);
+    void validerSessionCours(Professeur professeur,Long idCours);
+    //void validerSessionCours(Professeur professeur,Long idCours);
 
 }

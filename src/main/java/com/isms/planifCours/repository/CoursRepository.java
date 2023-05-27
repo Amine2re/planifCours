@@ -2,8 +2,9 @@ package com.isms.planifCours.repository;
 
 import com.isms.planifCours.entity.Cours;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CoursRepository extends JpaRepository<Cours,Long> {
+public interface CoursRepository extends CrudRepository<Cours,Long> {
 }
