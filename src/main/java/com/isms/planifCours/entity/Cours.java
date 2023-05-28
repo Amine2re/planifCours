@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NonNull;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,8 +17,9 @@ public class Cours {
 
     private int nombreHeureGlobal;
 
-    @ManyToMany(mappedBy = "cours")
-    private List<Professeur> professeurs;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "professeur_id")
+    private Professeur professeur;
 
     @ManyToMany
     @JoinTable(
@@ -28,5 +30,7 @@ public class Cours {
     private List<Module> modules;
     @OneToMany(mappedBy = "cours")
     private List<SessionCours> sessionsCours;
+    @ManyToMany(mappedBy = "cours")
+    private List<Etudiant> etudiants = new ArrayList<>();
 
 }

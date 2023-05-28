@@ -47,7 +47,7 @@ public class GestionAbscencesService {
     }
 
     public List<Absence> getAbsencesByCours(Long coursId) {
-        return absenceRepository.findByCoursId(coursId);
+        return absenceRepository.findAbsencesByCoursId(coursId);
     }
 
     public void justifierAbsence(Long absenceId, String justification) {
@@ -58,6 +58,6 @@ public class GestionAbscencesService {
     }
 
     public List<Absence> getAbsencesByProfesseur(Long professeurId) {
-        return absenceRepository.findByCoursProfesseurId(professeurId);
+        return absenceRepository.findByProfesseurId(professeurId);
     }
 }

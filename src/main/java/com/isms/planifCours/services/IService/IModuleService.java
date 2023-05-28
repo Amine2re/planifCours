@@ -7,7 +7,4 @@ import java.util.List;
 
 public interface IModuleService {
 
-    void creerModule(Module module, Long coursId);
-    void getModuleById(Long moduleId);
-    void planifierModule(Semestre semestre, List<Module> modules);
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,6 +29,9 @@ public class SessionCours {
     @ManyToOne
     @JoinColumn(name = "salle_id")
     private Salle salle;
-    @ManyToMany(mappedBy = "sessionsCours")
-    private List<Etudiant> etudiants;
+    @OneToMany(mappedBy = "sessionCours")
+    private List<Etudiant> etudiants = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "module_id")
+    private Module module;
 }

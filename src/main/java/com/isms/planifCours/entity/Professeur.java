@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NonNull;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,6 +21,12 @@ public class Professeur {
     private String grade;
     @ManyToMany(mappedBy = "professeurs")
     private List<Classe> classes;
-    @ManyToMany(mappedBy = "professeurs")
-    private List<Cours> cours;
+
+    @ManyToMany
+    @JoinTable(
+            name = "professeur_cours",
+            joinColumns = @JoinColumn(name = "professeur_id"),
+            inverseJoinColumns = @JoinColumn(name = "cours_id")
+    )
+    private List<Cours> cours = new ArrayList<>();;
 }

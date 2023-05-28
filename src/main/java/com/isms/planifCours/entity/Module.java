@@ -3,6 +3,7 @@ package com.isms.planifCours.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,5 +20,6 @@ public class Module {
     private List<Cours> cours;
 
     @OneToMany(mappedBy = "module")
-    private List<SessionCours> sessionsCours;
+    private List<SessionCours> sessionsCours = new ArrayList<>();
+
 }

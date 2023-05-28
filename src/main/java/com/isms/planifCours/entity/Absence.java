@@ -19,10 +19,17 @@ public class Absence {
     @JoinColumn(name = "session_cours_id")
     private SessionCours sessionCours;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "professeur_id")
+    private Professeur professeur;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cours_id")
+    private Cours cours;
+
     @Column(name = "justification")
     private String justification;
 
-    // Constructeurs, getters et setters
 
     public Absence(Etudiant etudiant, SessionCours sessionCours) {
         this.etudiant = etudiant;

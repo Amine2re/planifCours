@@ -1,11 +1,14 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/planifCours?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:8889/planifCours?createTableIfNotExist=true
     username: planif
-    password: planifIsm2023
+    password: planifCoursIsm2023
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
+    #database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
+      dialect: org.hibernate.dialect.MySQLDialect
+      #show-sql: true
       ddl-auto: update
       #ddl-auto: create
       #ddl-auto: validate
