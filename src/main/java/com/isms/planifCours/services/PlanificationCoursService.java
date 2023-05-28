@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -166,4 +167,7 @@ public class PlanificationCoursService  {
         }
     }
 
+    public List<Classe> getAllClasses() {
+        return (List<Classe>) classeRepository.findAll();
+    }
 }

@@ -3,6 +3,7 @@ package com.isms.planifCours.rest;
 import com.isms.planifCours.entity.Absence;
 import com.isms.planifCours.services.GestionAbscencesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class GestionAbsencesController {
         return gestionAbsencesService.getAbsencesByEtudiantId(etudiantId);
     }
 
-    @GetMapping("/cours/{coursId}/absences")
+        @GetMapping("/cours/{coursId}/absences")
     public List<Absence> getAbsencesByCours(@PathVariable Long coursId) {
         return gestionAbsencesService.getAbsencesByCours(coursId);
     }

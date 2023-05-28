@@ -5,6 +5,7 @@ import com.isms.planifCours.services.PlanificationCoursService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.isms.planifCours.entity.Module;
+import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
@@ -69,4 +70,8 @@ public class PlanificationCoursController {
         return planificationCoursService.getCoursByProfesseur(professeurId);
     }
 
+    @GetMapping("/allClasses")
+    public List<Classe> getAllClasses(){
+        return planificationCoursService.getAllClasses();
+    }
 }
