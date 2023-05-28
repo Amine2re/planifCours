@@ -1,6 +1,9 @@
 package com.isms.planifCours.security;
 
 import com.isms.planifCours.domain.repository.UserRepository;
+
+import com.isms.planifCours.filter.JwtTokenFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,25 +14,50 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@EnableWebSecurity
+import javax.servlet.http.HttpServletResponse;
+
+//@EnableWebSecurity
 public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
-    private final UserRepository userRepository;
+    @Autowired
+     private UserRepository userRepository;
+    @Autowired
 
-    public ApplicationSecurity(UserRepository userRepository) {
+     private JwtTokenFilter jwtTokenFilter;
+
+
+    public ApplicationSecurity(UserRepository userRepository, JwtTokenFilter jwtTokenFilter) {
         this.userRepository = userRepository;
+        this.jwtTokenFilter = jwtTokenFilter;
     }
+
+    public ApplicationSecurity() {
+        // Constructeur par défaut
+    }
+
+   /* public ApplicationSecurity(boolean disableDefaults, UserRepository userRepository, JwtTokenFilter jwtTokenFilter) {
+        super(disableDefaults);
+        this.userRepository = userRepository;
+        this.jwtTokenFilter = jwtTokenFilter;
+    }*/
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.authorizeRequests().anyRequest().permitAll();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests()
-                .antMatchers("/auth/login").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/**").permitAll();
+
+        http.exceptionHandling()
+                .authenticationEntryPoint((request, response, ex) -> {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
+                });
+
+        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

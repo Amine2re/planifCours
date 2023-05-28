@@ -5,6 +5,7 @@ import com.isms.planifCours.filter.JwtTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import javax.servlet.http.HttpServletResponse;
 
 @Configuration
-public class ApplicationSecurity {
+public class SecurityConfig {
 
     @Autowired
     private UserRepository userRepo;
@@ -39,10 +40,11 @@ public class ApplicationSecurity {
         };
     }
 
-    @Bean
+   /* @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
+    }*/
+
 
     @Bean
     public AuthenticationManager authenticationManager(

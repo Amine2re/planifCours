@@ -18,10 +18,11 @@ public class PlanifCoursApplication implements Runnable{
 
 	@Override
 	public void run() {
+		System.out.println("run executed ....");
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String password = passwordEncoder.encode("nam2020");
 
-		User newUser = new User("nam@codejava.net", password);
+		User newUser = new User("mouhamadoul2re@hotmail.com", password);
 		User savedUser = userRepository.save(newUser);
 	}
 }
