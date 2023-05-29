@@ -54,12 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         userEmail = jwtService.extractUsername(jwt);
         //var username = jwtService.extractUsername(jwt);
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            //UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-            var ledt = userRepository.findOneByEmail(userEmail);
-
-            UserDetails userDetails = ledt;
-            //return repository.findByEmail(email).stream().findFirst().orElseThrow(()->new RuntimeException("Email not found "));
-
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
                     var isTokenValid = tokenRepository.findByToken(jwt)
                     .map(t -> !t.isExpired() && !t.isRevoked())
                     .orElse(false);
