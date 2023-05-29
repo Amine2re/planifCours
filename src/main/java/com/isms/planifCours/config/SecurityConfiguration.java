@@ -45,22 +45,8 @@ public class SecurityConfiguration {
                 )
                 .permitAll()
 
-
-                /*.antMatchers("/api/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
-                .antMatchers(GET, "/api/management/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
-                .antMatchers(POST, "/api/management/**").hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_CREATE.name())
-                .antMatchers(PUT, "/api/management/**").hasAnyAuthority(ADMIN_UPDATE.name(), MANAGER_UPDATE.name())
-                .antMatchers(DELETE, "/api/management/**").hasAnyAuthority(ADMIN_DELETE.name(), MANAGER_DELETE.name())
-                */
-
-                /* .requestMatchers("/api/v1/admin/**").hasRole(ADMIN.name())
-
-                 .requestMatchers(GET, "/api/v1/admin/**").hasAuthority(ADMIN_READ.name())
-                 .requestMatchers(POST, "/api/v1/admin/**").hasAuthority(ADMIN_CREATE.name())
-                 .requestMatchers(PUT, "/api/v1/admin/**").hasAuthority(ADMIN_UPDATE.name())
-                 .requestMatchers(DELETE, "/api/v1/admin/**").hasAuthority(ADMIN_DELETE.name())*/
-
-
+                .antMatchers("/api/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
+                .antMatchers(POST, "/api/planification/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
                 .anyRequest()
                     .authenticated()
                 .and()
