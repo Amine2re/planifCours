@@ -44,9 +44,10 @@ public class SecurityConfiguration {
                         new AntPathRequestMatcher("/api/auth/**")
                 )
                 .permitAll()
-
-                .antMatchers("/api/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
-                .antMatchers(POST, "/api/planification/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
+                .antMatchers(POST,"/api/gestion-absences/**").hasAnyRole(ADMIN.name(), MANAGER.name())
+                .antMatchers(GET, "/api/gestion-absences/**").hasAnyRole(ADMIN.name(), MANAGER.name())
+                .antMatchers(POST,"/api/planification/**").hasAnyRole(ADMIN.name(), MANAGER.name())
+                .antMatchers(GET,"/api/planification/**").hasAnyRole(ADMIN.name(), MANAGER.name())
                 .anyRequest()
                     .authenticated()
                 .and()
