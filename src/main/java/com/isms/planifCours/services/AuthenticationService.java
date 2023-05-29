@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -82,6 +83,14 @@ public class AuthenticationService {
         });
         tokenRepository.saveAll(validUserTokens);
     }
+
+    /*public UserDetails findByUsername(String username){
+        return repository.findByUsername_(username).stream().findFirst().orElseThrow(()->new RuntimeException("Username not found "));
+    }*/
+
+   /* public UserDetails findByEmail(String email){
+        return repository.findByEmail(email).stream().findFirst().orElseThrow(()->new RuntimeException("Email not found "));
+    }*/
 
     public void refreshToken(
             HttpServletRequest request,

@@ -1,8 +1,11 @@
 package com.isms.planifCours.filter;
 
 import com.isms.planifCours.domain.repository.TokenRepository;
+import com.isms.planifCours.domain.repository.UserRepository;
+import com.isms.planifCours.services.AuthenticationService;
 import com.isms.planifCours.services.JwtService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,6 +28,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
     private final TokenRepository tokenRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(
@@ -47,9 +52,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
          jwt = authHeader.substring(7);
         System.out.println("authHeader .... {} " + jwt);
         userEmail = jwtService.extractUsername(jwt);
+        //var username = jwtService.extractUsername(jwt);
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-            var isTokenValid = tokenRepository.findByToken(jwt)
+            //UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
+            var ledt = userRepository.findOneByEmail(userEmail);
+
+            UserDetails userDetails = ledt;
+            //return repository.findByEmail(email).stream().findFirst().orElseThrow(()->new RuntimeException("Email not found "));
+
+                    var isTokenValid = tokenRepository.findByToken(jwt)
                     .map(t -> !t.isExpired() && !t.isRevoked())
                     .orElse(false);
             if (jwtService.isTokenValid(jwt, userDetails) && isTokenValid) {
