@@ -30,7 +30,12 @@ public class JwtService {
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
+         Claims claims = extractAllClaims(token);
+
+        if (claims == null){
+            return null;
+        }
+
         return claimsResolver.apply(claims);
     }
 
@@ -80,12 +85,18 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts
-                .parserBuilder()
-                .setSigningKey(getSignInKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        try {
+            return Jwts
+                    .parserBuilder()
+                    .setSigningKey(getSignInKey())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        }catch (Exception ex) {
+            System.out.println("xelcome execption");
+            System.out.println(ex.getMessage());
+        }
+        return null;
     }
 
     private Key getSignInKey() {
