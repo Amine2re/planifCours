@@ -6,7 +6,6 @@ import com.isms.planifCours.entity.SessionCours;
 import com.isms.planifCours.repository.AbsenceRepository;
 import com.isms.planifCours.repository.EtudiantRepository;
 import com.isms.planifCours.repository.SessionCoursRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
