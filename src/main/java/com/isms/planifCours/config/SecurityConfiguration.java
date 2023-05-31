@@ -14,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import static com.isms.planifCours.domain.Permission.*;
 import static com.isms.planifCours.domain.Role.ADMIN;
@@ -28,6 +29,7 @@ import static org.springframework.http.HttpMethod.PUT;
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableMethodSecurity
+//@CrossOrigin("/**")
 public class SecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
@@ -40,16 +42,18 @@ public class SecurityConfiguration {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers(
+                .anyRequest()
+                /*.requestMatchers(
                         new AntPathRequestMatcher("/api/auth/**")
-                )
+                )*/
                 .permitAll()
-                .antMatchers(POST,"/api/gestion-absences/**").hasAnyRole(ADMIN.name(), MANAGER.name())
+                //.antMatchers("/api/auth/authenticate").permitAll()
+               /* .antMatchers(POST,"/api/gestion-absences/**").hasAnyRole(ADMIN.name(), MANAGER.name())
                 .antMatchers(GET, "/api/gestion-absences/**").hasAnyRole(ADMIN.name(), MANAGER.name())
                 .antMatchers(POST,"/api/planification/**").hasAnyRole(ADMIN.name(), MANAGER.name())
                 .antMatchers(GET,"/api/planification/**").hasAnyRole(ADMIN.name(), MANAGER.name())
                 .anyRequest()
-                    .authenticated()
+                    .authenticated()*/
                 .and()
                     .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

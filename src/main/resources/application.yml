@@ -1,6 +1,13 @@
-
+#
+#web:
+#  cors:
+#    allowed-origins: "http://localhost:4200"
+#    allowed-methods: GET, POST, PATCH, PUT, DELETE, OPTIONS, HEAD
+#    max-age: 3600
+#    allowed-headers: "Requestor-Type"
+#    exposed-headers: "X-Get-Header"
 server:
-  port: 9995
+  port: 8080
 spring:
   datasource:
     url: jdbc:mysql://localhost:8889/planifCours?createTableIfNotExist=true
