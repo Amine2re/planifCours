@@ -168,10 +168,12 @@ public class PlanificationCoursService  {
     }
 
     public List<Classe> getAllClasses() {
-        return (List<Classe>) classeRepository.findAll();
+        var result = classeRepository.findAll();
+        return result;
     }
 
     public List<AnneeScolaire> getAllAnneeScolaire() {
-        return (List<AnneeScolaire>) anneeScolaireRepository.findAll();
+        var result = anneeScolaireRepository.findAll();
+        return  result;
     }
 }
