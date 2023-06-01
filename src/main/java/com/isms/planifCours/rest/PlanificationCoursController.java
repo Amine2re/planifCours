@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.isms.planifCours.entity.Module;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/planification")
+@CrossOrigin("*")
 public class PlanificationCoursController {
 
     @Autowired
@@ -70,8 +73,13 @@ public class PlanificationCoursController {
         return planificationCoursService.getCoursByProfesseur(professeurId);
     }
 
-    @GetMapping("/allClasses")
+        @GetMapping("/allClasses")
     public List<Classe> getAllClasses(){
         return planificationCoursService.getAllClasses();
+    }
+
+    @GetMapping("/allAnneScolaire")
+    public List<AnneeScolaire> getAllAnneeScolaire(){
+        return planificationCoursService.getAllAnneeScolaire();
     }
 }
