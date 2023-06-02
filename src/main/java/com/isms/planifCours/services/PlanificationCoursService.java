@@ -170,4 +170,9 @@ public class PlanificationCoursService  {
     public List<Classe> getAllClasses() {
         return (List<Classe>) classeRepository.findAll();
     }
+
+    public List<AnneeScolaire> getAllAnneeScolaire() {
+        return (List<AnneeScolaire>) anneeScolaireRepository.findAll();
+    }
+
 }

@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +26,17 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
+        var userFound = repository.findByEmail(request.getEmail()).get();
+        boolean isUserExist = ifUserExist(userFound);
+
+        if(isUserExist){
+            System.out.println("l'utilisateur existe deja ... ");
+            return AuthenticationResponse.builder()
+                    .accessToken(String.valueOf(userFound.getToken()))
+                    .refreshToken(jwtService.generateRefreshToken(userFound))
+                    .build();
+        }
+
         var user = User.builder()
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
@@ -40,6 +52,12 @@ public class AuthenticationService {
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
                 .build();
+
+
+    }
+
+    boolean ifUserExist(User user){
+        return !ObjectUtils.isEmpty(repository.findById(user.getId()));
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {

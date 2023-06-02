@@ -45,4 +45,6 @@ public class GestionAbsencesController {
         return gestionAbsencesService.getAbsencesBySessionCoursId(sessionCoursId);
     }
 
+
+
 }

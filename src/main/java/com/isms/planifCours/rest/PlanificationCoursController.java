@@ -75,4 +75,8 @@ public class PlanificationCoursController {
     public List<Classe> getAllClasses(){
         return planificationCoursService.getAllClasses();
     }
+    @GetMapping("/allAnneeScolaire")
+    public List<AnneeScolaire> getAllAnneeScolaire(){
+        return planificationCoursService.getAllAnneeScolaire();
+    }
 }

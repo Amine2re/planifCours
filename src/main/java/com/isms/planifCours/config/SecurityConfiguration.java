@@ -42,11 +42,12 @@ public class SecurityConfiguration {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .anyRequest()
-                /*.requestMatchers(
+                .requestMatchers(
                         new AntPathRequestMatcher("/api/auth/**")
-                )*/
+                )
                 .permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/api/**"))
+                .authenticated()
                 //.antMatchers("/api/auth/authenticate").permitAll()
                /* .antMatchers(POST,"/api/gestion-absences/**").hasAnyRole(ADMIN.name(), MANAGER.name())
                 .antMatchers(GET, "/api/gestion-absences/**").hasAnyRole(ADMIN.name(), MANAGER.name())
