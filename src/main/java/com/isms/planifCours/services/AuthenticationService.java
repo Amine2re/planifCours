@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.isms.planifCours.domain.*;
 import com.isms.planifCours.domain.repository.TokenRepository;
 import com.isms.planifCours.domain.repository.UserRepository;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +16,7 @@ import org.springframework.util.ObjectUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @RequiredArgsConstructor
@@ -26,15 +28,31 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        var userFound = repository.findByEmail(request.getEmail()).get();
-        boolean isUserExist = ifUserExist(userFound);
 
-        if(isUserExist){
-            System.out.println("l'utilisateur existe deja ... ");
-            return AuthenticationResponse.builder()
-                    .accessToken(String.valueOf(userFound.getToken()))
-                    .refreshToken(jwtService.generateRefreshToken(userFound))
-                    .build();
+            var userFound = repository.findByEmail(request.getEmail());
+            User userAvalaible = new User();
+            if(userFound.isPresent()){
+                userAvalaible = userFound.get();
+
+            boolean isUserExist = ifUserExist(userAvalaible);
+
+            if(isUserExist){
+
+                System.out.println("l'utilisateur existe deja ... ");
+
+                var savedUser = repository.save(userAvalaible);
+                var jwtToken = jwtService.generateToken(userAvalaible);
+                var refreshToken = jwtService.generateRefreshToken(userAvalaible);
+
+                System.out.println(" new token .... " + jwtToken);
+
+                saveUserToken(savedUser, jwtToken);
+
+                return AuthenticationResponse.builder()
+                        .accessToken(jwtToken)
+                        .refreshToken(refreshToken)
+                        .build();
+            }
         }
 
         var user = User.builder()
@@ -44,20 +62,27 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
                 .build();
+
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         saveUserToken(savedUser, jwtToken);
+
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
                 .build();
-
-
     }
 
     boolean ifUserExist(User user){
-        return !ObjectUtils.isEmpty(repository.findById(user.getId()));
+
+        System.out.println("id ..." + user.getId());
+        System.out.println("email ..." + user.getEmail());
+
+
+        var userFound = repository.findById(user.getId());
+
+        return !ObjectUtils.isEmpty(userFound);
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
