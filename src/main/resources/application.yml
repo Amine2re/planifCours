@@ -1,16 +1,9 @@
 
-#web:
-#  cors:
-#    allowed-origins: "http://localhost:4200"
-#    allowed-methods: GET, POST, PATCH, PUT, DELETE, OPTIONS, HEAD
-#    max-age: 3600
-#    allowed-headers: "Requestor-Type"
-#    exposed-headers: "X-Get-Header"
 server:
   port: 8080
 spring:
   datasource:
-    url: jdbc:mysql://localhost:8889/planifCours?createTableIfNotExist=true
+    url: jdbc:mysql://localhost:8889/planifCours_?createTableIfNotExist=true
     username: planif
     password: planifCoursIsm2023
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -29,3 +22,7 @@ spring:
         expiration: 86400000 # a day
         refresh-token:
           expiration: 604800000 # 7 days
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+    time-zone: UTC
