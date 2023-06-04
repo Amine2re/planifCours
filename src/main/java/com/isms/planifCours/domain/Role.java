@@ -1,5 +1,6 @@
 package com.isms.planifCours.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.NaturalId;
@@ -21,6 +22,7 @@ import static com.isms.planifCours.domain.Permission.MANAGER_DELETE;
 import static com.isms.planifCours.domain.Permission.MANAGER_READ;
 import static com.isms.planifCours.domain.Permission.MANAGER_UPDATE;
 
+@Builder
 @Entity
 @Getter
 @Table(name = "roles")
