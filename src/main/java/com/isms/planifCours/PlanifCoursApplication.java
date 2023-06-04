@@ -23,11 +23,11 @@ public class PlanifCoursApplication {
 		SpringApplication.run(PlanifCoursApplication.class, args);
 	}
 
-	@Bean
+/*	@Bean
 	public CommandLineRunner commandLineRunner(
 			AuthenticationService service
-	) {
-		return args -> {
+	) {*/
+		/*return args -> {
 			var admin = RegisterRequest.builder()
 					.firstname("Mouhamadoul")
 					.lastname("Toure")
@@ -36,7 +36,7 @@ public class PlanifCoursApplication {
 					.role(ADMIN)
 					.build();
 			System.out.println("Admin token: " + service.register(admin).getAccessToken());
-
+*/
 		/*	var manager = RegisterRequest.builder()
 					.firstname("Admin")
 					.lastname("Admin")
@@ -46,6 +46,6 @@ public class PlanifCoursApplication {
 					.build();
 			System.out.println("Manager token: " + service.register(manager).getAccessToken());*/
 
-		};
-	}
+		//};
+	//}
 }

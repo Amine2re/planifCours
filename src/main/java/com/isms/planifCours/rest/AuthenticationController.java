@@ -15,7 +15,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-//@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200/",maxAge = 3600)
 public class AuthenticationController {
 
     private final AuthenticationService service;
@@ -30,7 +30,8 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request
     ) {
-        return ResponseEntity.ok(service.authenticate(request));
+        var retour = service.authenticate(request) ;
+        return ResponseEntity.ok(retour);
     }
 
     @PostMapping("/refresh-token")

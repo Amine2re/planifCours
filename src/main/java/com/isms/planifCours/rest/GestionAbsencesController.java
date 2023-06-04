@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/gestion-absences")
-//@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200/",maxAge = 3600)
 public class GestionAbsencesController {
 
     @Autowired

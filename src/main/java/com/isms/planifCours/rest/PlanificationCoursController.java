@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/planification")
-//@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
 public class PlanificationCoursController {
 
     @Autowired
@@ -75,6 +75,7 @@ public class PlanificationCoursController {
     public List<Classe> getAllClasses(){
         return planificationCoursService.getAllClasses();
     }
+
     @GetMapping("/allAnneeScolaire")
     public List<AnneeScolaire> getAllAnneeScolaire(){
         return planificationCoursService.getAllAnneeScolaire();
